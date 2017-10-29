@@ -4,7 +4,7 @@
 parameters:
     database_host: 127.0.0.1
     database_port: ~
-    database_name: symfony
+    database_name: mg
     database_user: root
     database_password: ~
     # You should uncomment this if you want to use pdo_sqlite
@@ -17,3 +17,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    #jwt configuration
+    jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem' # ssh private key path
+    jwt_public_key_path:  '%kernel.root_dir%/../var/jwt/public.pem'  # ssh public key path
+    jwt_key_pass_phrase:  'imen'                                         # ssh key pass phrase
+    jwt_token_ttl:        3600

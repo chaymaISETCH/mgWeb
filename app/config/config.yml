@@ -64,3 +64,56 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+    
+    
+lexik_jwt_authentication:
+    private_key_path: '%jwt_private_key_path%'
+    public_key_path:  '%jwt_public_key_path%'
+    pass_phrase:      '%jwt_key_pass_phrase%'
+    token_ttl:        '%jwt_token_ttl%'
+    
+
+# FOS Rest Configuration
+#fos_rest:
+#    param_fetcher_listener: true
+#    format_listener:
+#        rules:
+#            fallback_format: json
+#            prefer_extension: false
+#            priorities: [json]
+#    view:
+#        view_response_listener: force
+#        formats:
+#            json: true
+#            xml: true
+#            jsonp: false
+#            rss: false
+#            html: false
+#        failed_validation: HTTP_BAD_REQUEST
+        
+        
+fos_rest:
+    exception:
+        enabled: true
+    routing_loader:
+        default_format: 'json'
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener:
+        rules:
+            fallback_format: json
+            prefer_extension: false
+            priorities: [json]
+    versioning: true
+    view:
+        formats:
+            json: true
+            xml: false
+            jsonp: false
+            rss: false
+            html: false
+        view_response_listener: false
+        failed_validation: HTTP_BAD_REQUEST
+    
+sensio_framework_extra:
+    view: { annotations: true }

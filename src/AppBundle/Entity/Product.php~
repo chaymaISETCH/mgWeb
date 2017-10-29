@@ -1,0 +1,46 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="product")
+ */
+class Product {
+
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $label;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $barCode;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $picture;
+
+}
