@@ -117,3 +117,11 @@ fos_rest:
     
 sensio_framework_extra:
     view: { annotations: true }
+    
+    
+jms_serializer:
+    metadata:
+        directories:
+            mg:
+                namespace_prefix: "AppBundle"
+                path: "@AppBundle/Resources/config/serializer"

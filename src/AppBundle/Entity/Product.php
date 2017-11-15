@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,14 +42,25 @@ class Product {
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Promotion", mappedBy="product")
+     */
+    private $promotions;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->promotions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -61,8 +71,7 @@ class Product {
      *
      * @return Product
      */
-    public function setLabel($label)
-    {
+    public function setLabel($label) {
         $this->label = $label;
 
         return $this;
@@ -73,8 +82,7 @@ class Product {
      *
      * @return string
      */
-    public function getLabel()
-    {
+    public function getLabel() {
         return $this->label;
     }
 
@@ -85,8 +93,7 @@ class Product {
      *
      * @return Product
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
 
         return $this;
@@ -97,8 +104,7 @@ class Product {
      *
      * @return float
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
@@ -109,8 +115,7 @@ class Product {
      *
      * @return Product
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -121,8 +126,7 @@ class Product {
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -133,8 +137,7 @@ class Product {
      *
      * @return Product
      */
-    public function setBarCode($barCode)
-    {
+    public function setBarCode($barCode) {
         $this->barCode = $barCode;
 
         return $this;
@@ -145,8 +148,7 @@ class Product {
      *
      * @return string
      */
-    public function getBarCode()
-    {
+    public function getBarCode() {
         return $this->barCode;
     }
 
@@ -157,8 +159,7 @@ class Product {
      *
      * @return Product
      */
-    public function setPicture($picture)
-    {
+    public function setPicture($picture) {
         $this->picture = $picture;
 
         return $this;
@@ -169,8 +170,41 @@ class Product {
      *
      * @return string
      */
-    public function getPicture()
-    {
+    public function getPicture() {
         return $this->picture;
+    }
+
+    /**
+     * Add promotion
+     *
+     * @param \AppBundle\Entity\Promotion $promotion
+     *
+     * @return Product
+     */
+    public function addPromotion(\AppBundle\Entity\Promotion $promotion)
+    {
+        $this->promotions[] = $promotion;
+
+        return $this;
+    }
+
+    /**
+     * Remove promotion
+     *
+     * @param \AppBundle\Entity\Promotion $promotion
+     */
+    public function removePromotion(\AppBundle\Entity\Promotion $promotion)
+    {
+        $this->promotions->removeElement($promotion);
+    }
+
+    /**
+     * Get promotions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPromotions()
+    {
+        return $this->promotions;
     }
 }

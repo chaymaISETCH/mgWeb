@@ -5,6 +5,10 @@ user:
 product:
     type:     rest
     resource: AppBundle\Controller\ProductController
+
+promotion:
+    type:     rest
+    resource: AppBundle\Controller\PromotionController
     
 api_login_check:
     path: /api/login_check

@@ -1,0 +1,12 @@
+AppBundle\Entity\Promotion:
+    exclusion_policy: ALL
+    properties:
+        beginDate:
+            expose: true
+            type: DateTime<'d-m-Y'>
+        endDate:
+            expose: true
+            type: DateTime<'d-m-Y'>
+        product:
+            expose: true
+        
