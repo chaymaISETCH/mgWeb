@@ -45,7 +45,14 @@ class Product {
     /**
      * @ORM\OneToMany(targetEntity="Promotion", mappedBy="product")
      */
+    
     private $promotions;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="produits")
+     * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
+     */
+    private $categorie;
 
     /**
      * Constructor
@@ -206,5 +213,29 @@ class Product {
     public function getPromotions()
     {
         return $this->promotions;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \AppBundle\Entity\Categorie $categorie
+     *
+     * @return Product
+     */
+    public function setCategorie(\AppBundle\Entity\Categorie $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \AppBundle\Entity\Categorie
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }

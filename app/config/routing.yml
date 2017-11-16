@@ -10,5 +10,10 @@ promotion:
     type:     rest
     resource: AppBundle\Controller\PromotionController
     
+categorie:
+    type:     rest
+    resource: AppBundle\Controller\CategorieController
+    
+
 api_login_check:
     path: /api/login_check
