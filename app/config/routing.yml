@@ -14,6 +14,10 @@ categorie:
     type:     rest
     resource: AppBundle\Controller\CategorieController
     
+authetification:
+    type:     rest
+    resource: AppBundle\Controller\AuthentificationController    
+    
 
 api_login_check:
     path: /api/login_check

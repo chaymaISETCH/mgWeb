@@ -10,15 +10,15 @@ namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Authentification;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * Description of ClientController
+ * Description of AuthentificationController
  *
  * @author imen
  */
-class ProductController extends FOSRestController {
+class AuthentificationController extends FOSRestController {
 
     /**
      * Returns all users values.
@@ -26,15 +26,12 @@ class ProductController extends FOSRestController {
      * @return View
      * 
      */
-    public function getProductsAction() {
-        $data = $this->getDoctrine()->getManager()->getRepository(Product::class)->findAll();
-       
-  
+    public function getAuthentificationsAction() {
+        $data = $this->getDoctrine()->getManager()->getRepository(Authentification::class)->findAll();
 
         $view = View::create()
                 ->setStatusCode(200)
                 ->setData($data);
-             
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
@@ -45,11 +42,11 @@ class ProductController extends FOSRestController {
      * @return View
      * 
      */
-    public function getProductAction($id) {
-        $data = $this->getDoctrine()->getManager()->getRepository(Product::class)->findOneById($id);
+    public function getAuthentificationAction($id) {
+        $data = $this->getDoctrine()->getManager()->getRepository(Authentification::class)->findOneById($id);
 
         if (!$data) {
-            throw new HttpException(404, "product with the id $id not found");
+            throw new HttpException(404, "promotion with the id $id not found");
         }
         $view = View::create()
                 ->setStatusCode(200)
