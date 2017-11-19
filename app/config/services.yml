@@ -4,6 +4,8 @@ parameters:
     #parameter_name: value
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.serializer.product:
+        class: AppBundle\Serializer\PictureSerializer
+        arguments: [%route_picture_path%]
+        tags:
+            - { name: jms_serializer.event_subscriber }

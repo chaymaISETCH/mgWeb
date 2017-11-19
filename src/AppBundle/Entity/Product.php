@@ -43,11 +43,15 @@ class Product {
     private $picture;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $guarantee;
+
+    /**
      * @ORM\OneToMany(targetEntity="Promotion", mappedBy="product")
      */
-    
     private $promotions;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="produits")
      * @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
@@ -57,8 +61,7 @@ class Product {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->promotions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -188,8 +191,7 @@ class Product {
      *
      * @return Product
      */
-    public function addPromotion(\AppBundle\Entity\Promotion $promotion)
-    {
+    public function addPromotion(\AppBundle\Entity\Promotion $promotion) {
         $this->promotions[] = $promotion;
 
         return $this;
@@ -200,8 +202,7 @@ class Product {
      *
      * @param \AppBundle\Entity\Promotion $promotion
      */
-    public function removePromotion(\AppBundle\Entity\Promotion $promotion)
-    {
+    public function removePromotion(\AppBundle\Entity\Promotion $promotion) {
         $this->promotions->removeElement($promotion);
     }
 
@@ -210,8 +211,7 @@ class Product {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPromotions()
-    {
+    public function getPromotions() {
         return $this->promotions;
     }
 
@@ -222,8 +222,7 @@ class Product {
      *
      * @return Product
      */
-    public function setCategorie(\AppBundle\Entity\Categorie $categorie = null)
-    {
+    public function setCategorie(\AppBundle\Entity\Categorie $categorie = null) {
         $this->categorie = $categorie;
 
         return $this;
@@ -234,8 +233,32 @@ class Product {
      *
      * @return \AppBundle\Entity\Categorie
      */
-    public function getCategorie()
-    {
+    public function getCategorie() {
         return $this->categorie;
+    }
+
+
+    /**
+     * Set guarantee
+     *
+     * @param integer $guarantee
+     *
+     * @return Product
+     */
+    public function setGuarantee($guarantee)
+    {
+        $this->guarantee = $guarantee;
+
+        return $this;
+    }
+
+    /**
+     * Get guarantee
+     *
+     * @return integer
+     */
+    public function getGuarantee()
+    {
+        return $this->guarantee;
     }
 }
