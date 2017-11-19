@@ -7,10 +7,13 @@ AppBundle\Entity\Product:
         price:
             expose: true
             type: float
-        discription:
+        description:
             expose: true
             type: string
         barCode:
+            expose: true
+            type: string
+        guarantee:
             expose: true
             type: string
         picture:

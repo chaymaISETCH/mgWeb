@@ -1,0 +1,5 @@
+app.serializer.product:
+    class: AppBundle\Serializer\PictureSerializer
+    parameters: [%route_picture_path%]
+    tags:
+        - { name: jms_serializer.event_subscriber }

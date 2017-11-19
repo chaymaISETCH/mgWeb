@@ -42,5 +42,10 @@ class UserFormType extends AbstractType {
             'csrf_protection' => false,
         ));
     }
+    
+    public function getName()
+    {
+        return "";
+    }
 
 }
