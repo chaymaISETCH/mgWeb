@@ -61,6 +61,10 @@ class Product {
     /**
      * Constructor
      */
+    /**
+        * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Recipe", mappedBy="products")
+        */
+        private $recipes;
     public function __construct() {
         $this->promotions = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -260,5 +264,39 @@ class Product {
     public function getGuarantee()
     {
         return $this->guarantee;
+    }
+
+    /**
+     * Add recipe
+     *
+     * @param \App\Entity\Recipe $recipe
+     *
+     * @return Product
+     */
+    public function addRecipe(\App\Entity\Recipe $recipe)
+    {
+        $this->recipes[] = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipe
+     *
+     * @param \App\Entity\Recipe $recipe
+     */
+    public function removeRecipe(\App\Entity\Recipe $recipe)
+    {
+        $this->recipes->removeElement($recipe);
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
     }
 }

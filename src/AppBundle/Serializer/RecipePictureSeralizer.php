@@ -5,12 +5,12 @@ namespace AppBundle\Serializer;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 
-class PictureSerializer implements EventSubscriberInterface {
+class RecipePictureSeralizer implements EventSubscriberInterface {
 
-    private $routePicturePath;
+    private $routePicturePathRecipe;
 
-    public function __construct($routePicturePath) {
-        $this->routePicturePath = $routePicturePath;
+    public function __construct($routePicturePathRecipe) {
+        $this->routePicturePathRecipe = $routePicturePathRecipe;
     }
 
     public static function getSubscribedEvents() {
@@ -18,7 +18,7 @@ class PictureSerializer implements EventSubscriberInterface {
             array(
                 'event' => 'serializer.post_serialize',
                 'method' => 'onPostSerialize',
-                'class' => 'AppBundle\Entity\Product',
+                'class' => 'AppBundle\Entity\Recipe',
                 'format' => 'json',
                 'priority' => 0, 
             ),
@@ -27,13 +27,13 @@ class PictureSerializer implements EventSubscriberInterface {
 
     public function onPostSerialize(ObjectEvent $event) {
 
-        $path = $this->routePicturePath . $event->getObject()->getPicture();
+        $path = $this->routePicturePathRecipe . $event->getObject()->getPicture();
         
         $file = fopen($path, "rb");
         $contents = fread($file, filesize($path));
         $encoded_image = base64_encode($contents);
 
-        $event->getVisitor()->addData('picture_bin', $encoded_image);
+        $event->getVisitor()->addData('picture_binaire', $encoded_image);
     }
 
 }
