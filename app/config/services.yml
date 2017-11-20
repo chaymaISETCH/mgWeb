@@ -9,3 +9,9 @@ services:
         arguments: [%route_picture_path%]
         tags:
             - { name: jms_serializer.event_subscriber }
+            
+    app.serializer.recipe:
+        class: AppBundle\Serializer\RecipePictureSeralizer
+        arguments: [%route_picture_path_recipe%]
+        tags:
+            - { name: jms_serializer.event_subscriber }

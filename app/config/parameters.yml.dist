@@ -25,3 +25,4 @@ parameters:
     jwt_token_ttl:        3600
 
     route_picture_path: '%kernel.root_dir%/../web/products/'
+    route_Picture_Path_Recipe: '%kernel.root_dir%/../web/recipePictures/'

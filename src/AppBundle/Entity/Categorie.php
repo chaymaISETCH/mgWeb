@@ -24,10 +24,7 @@ class Categorie  {
      * @ORM\Column(type="string")
      */
     private $description;
-      /**
-     * @ORM\Column(type="string")
-     */
-    private $picture;
+     
     
     /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="categorie")
@@ -82,22 +79,7 @@ class Categorie  {
      *
      * @return Categorie
      */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * Get picture
-     *
-     * @return string
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
+    
 
     /**
      * Add produit

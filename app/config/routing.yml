@@ -13,7 +13,10 @@ promotion:
 categorie:
     type:     rest
     resource: AppBundle\Controller\CategorieController
-      
+ 
+recipe:
+    type:     rest
+    resource: AppBundle\Controller\RecipeController
     
 
 api_login_check:
