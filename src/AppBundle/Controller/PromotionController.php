@@ -12,6 +12,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\Promotion;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
 
 /**
  * Description of PromotionController
@@ -37,6 +39,33 @@ class PromotionController extends FOSRestController {
     }
 
     /**
+     * @QueryParam(name="date", description="date")
+     */
+    public function getPromotionsDateAction(ParamFetcher $paramFetcher) {
+
+        $repository = $this->getDoctrine()->getRepository(Promotion::class);
+        
+        
+        $date = date("Y-m-d", $paramFetcher->get('date'));
+        $query = $repository->createQueryBuilder('p')
+                ->select("count(p.id)")
+                ->where(':date BETWEEN p.beginDate AND  p.endDate')
+                ->setParameter('date', $date)
+                ->getQuery();
+
+        $productCount = $query->getSingleScalarResult();
+        $isDisponible = false;
+        if($productCount > 0){
+            $isDisponible = true;
+        }
+        $view = View::create()
+                ->setStatusCode(200)
+                ->setData(array("isDisponible" => $isDisponible));
+
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
+    
+    /**
      * Returns all enumeration values.
      * 
      * @return View
@@ -56,4 +85,5 @@ class PromotionController extends FOSRestController {
     }
 
     
+
 }
