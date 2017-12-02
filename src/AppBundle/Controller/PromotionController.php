@@ -46,7 +46,7 @@ class PromotionController extends FOSRestController {
         $repository = $this->getDoctrine()->getRepository(Promotion::class);
         
         
-        $date = date("Y-m-d", $paramFetcher->get('date'));
+        $date = date("Y-m-d H:i:s", $paramFetcher->get('date'));
         $query = $repository->createQueryBuilder('p')
                 ->select("count(p.id)")
                 ->where(':date BETWEEN p.beginDate AND  p.endDate')

@@ -11,6 +11,7 @@ namespace AppBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Carte;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use AppBundle\Form\Type\UserFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,6 +76,15 @@ class UserController extends FOSRestController {
                     $encoder = $this->container->get('security.password_encoder');
                     $passwordEncoded = $encoder->encodePassword($user, $user->getPassword());
                     $user->setPassword($passwordEncoded);
+                    
+                    $fidilityCard = $request->get('fidilityCard');
+                    $cart = new Carte();
+                    $cart->setNumber($fidilityCard);
+                    $cart->setPoint(0);
+                    $cart->setDescription('bienvenue');
+
+                    $user->setCarte($cart);
+                    $this->getDoctrine()->getManager()->persist($cart);
                     $this->getDoctrine()->getManager()->persist($user);
                     $this->getDoctrine()->getManager()->flush();
                     $view->setStatusCode(204);
@@ -131,6 +141,24 @@ class UserController extends FOSRestController {
             throw new HttpException(500, $ex->getMessage());
         }
 
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
+    public function likeUserCategoryAction($userId, $categoryId) {
+        
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneById($userId);
+         if (!$user) {
+            throw new HttpException(404, "user with the id $userId not found");
+        }
+        $categorie = $this->getDoctrine()->getManager()->getRepository(\AppBundle\Entity\Categorie::class)->findOneById($categoryId);
+         if (!$categorie) {
+            throw new HttpException(404, "categorie with the id $categoryId not found");
+        }
+        $user->addCategory($categorie);
+        $this->getDoctrine()->getManager()->persist($user);
+        $this->getDoctrine()->getManager()->flush();
+        $view = View::create();
+        $view->setStatusCode(204);
         return $this->get('fos_rest.view_handler')->handle($view);
     }
 

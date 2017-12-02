@@ -17,7 +17,11 @@ class User implements UserInterface {
      * @ORM\Column(type="integer")
      */
     private $id;
-
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $identityCarteNumber;
     /**
      * @ORM\Column(type="string")
      */
@@ -33,10 +37,6 @@ class User implements UserInterface {
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $fidilityCard;
 
     /**
      * @ORM\Column(type="integer")
@@ -52,6 +52,17 @@ class User implements UserInterface {
      * @ORM\Column(type="string")
      */
     private $password;
+    /**
+        * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie", inversedBy="users", cascade={"persist"})
+        * @ORM\JoinTable(name="user_categorie")
+        */
+    private $categories;
+     /**
+     * One user has One carte.
+     * @ORM\OneToOne(targetEntity="Carte")
+     * @ORM\JoinColumn(name="carte_id", referencedColumnName="number")
+     */
+    private $carte;
 
     /**
      * Get id
@@ -169,29 +180,6 @@ class User implements UserInterface {
     public function getEmail() {
         return $this->email;
     }
-
-    /**
-     * Set fidilityCard
-     *
-     * @param integer $fidilityCard
-     *
-     * @return User
-     */
-    public function setFidilityCard($fidilityCard) {
-        $this->fidilityCard = $fidilityCard;
-
-        return $this;
-    }
-
-    /**
-     * Get fidilityCard
-     *
-     * @return integer
-     */
-    public function getFidilityCard() {
-        return $this->fidilityCard;
-    }
-
     /**
      * Set phoneNumber
      *
@@ -231,4 +219,93 @@ class User implements UserInterface {
         
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Categorie $category
+     *
+     * @return User
+     */
+    public function addCategory(\AppBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\AppBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Set identityCarteNumber
+     *
+     * @param string $identityCarteNumber
+     *
+     * @return User
+     */
+    public function setIdentityCarteNumber($identityCarteNumber)
+    {
+        $this->identityCarteNumber = $identityCarteNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get identityCarteNumber
+     *
+     * @return string
+     */
+    public function getIdentityCarteNumber()
+    {
+        return $this->identityCarteNumber;
+    }
+
+    /**
+     * Set carte
+     *
+     * @param \AppBundle\Entity\Carte $carte
+     *
+     * @return User
+     */
+    public function setCarte(\AppBundle\Entity\Carte $carte = null)
+    {
+        $this->carte = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Get carte
+     *
+     * @return \AppBundle\Entity\Carte
+     */
+    public function getCarte()
+    {
+        return $this->carte;
+    }
 }
