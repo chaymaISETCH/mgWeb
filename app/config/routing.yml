@@ -17,6 +17,9 @@ categorie:
 recipe:
     type:     rest
     resource: AppBundle\Controller\RecipeController
+carte:
+    type:     rest
+    resource: AppBundle\Controller\CarteController    
     
 
 api_login_check:

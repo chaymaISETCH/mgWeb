@@ -28,13 +28,38 @@ class ProductController extends FOSRestController {
      */
     public function getProductsAction() {
         $data = $this->getDoctrine()->getManager()->getRepository(Product::class)->findAll();
-       
-  
+
+
 
         $view = View::create()
                 ->setStatusCode(200)
                 ->setData($data);
-             
+
+
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
+    /**
+     * Returns all users values.
+     * 
+     * @return View
+     * 
+     */
+    public function getProductsWithValidPromotionAction() {
+        $repository = $this->getDoctrine()->getManager()->getRepository(Product::class);
+        $date = date("Y-m-d H:i:s");
+        
+        $data = $repository->createQueryBuilder('p')
+                ->join('p.promotions', 'pr')
+                ->where(':date BETWEEN pr.beginDate AND pr.endDate')
+                ->setParameter('date', $date)
+                ->getQuery()
+                ->getResult();
+
+        $view = View::create()
+                ->setStatusCode(200)
+                ->setData($data);
+
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
@@ -58,5 +83,4 @@ class ProductController extends FOSRestController {
         return $this->get('fos_rest.view_handler')->handle($view);
     }
 
-    
 }

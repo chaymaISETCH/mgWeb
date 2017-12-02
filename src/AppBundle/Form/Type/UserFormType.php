@@ -27,7 +27,7 @@ class UserFormType extends AbstractType {
                 ->add('username', TextType::class)
                 ->add('password', TextType::class)
                 ->add('phoneNumber', TextType::class)
-                ->add('fidilityCard', TextType::class);
+                ->add('fidilityCard', TextType::class, array('mapped' => false));
     }
 
     /**

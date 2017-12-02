@@ -6,7 +6,7 @@ AppBundle\Entity\Promotion:
             type: DateTime<'d-m-Y'>
         endDate:
             expose: true
-            type: DateTime<'d-m-Y'>
+            type: DateTime<'d-m-Y H:i:s'>
         newPrice:
             expose: true
         product:

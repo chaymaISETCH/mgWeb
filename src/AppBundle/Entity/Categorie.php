@@ -31,6 +31,10 @@ class Categorie  {
      */
     private $produits;
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="categories")
+     */
+    private $users;
+    /**
      * Constructor
      */
     public function __construct()
@@ -113,5 +117,39 @@ class Categorie  {
     public function getProduits()
     {
         return $this->produits;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Categorie
+     */
+    public function addUser(\AppBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeUser(\AppBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }
