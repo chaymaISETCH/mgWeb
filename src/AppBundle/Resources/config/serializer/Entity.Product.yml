@@ -13,9 +13,15 @@ AppBundle\Entity\Product:
         barCode:
             expose: true
             type: string
+        virtual_properties:
+            getCategoryId: 
+                serialized_name: category_id
+                type: integer
+          
         guarantee:
             expose: true
             type: string
         picture:
             expose: true
             type: string
+            

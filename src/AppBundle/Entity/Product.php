@@ -296,5 +296,9 @@ class Product {
     public function getRecipes() {
         return $this->recipes;
     }
+    public function getCategoryId() {
+        return $this->categorie->getId();
+        
+    }
 
 }
