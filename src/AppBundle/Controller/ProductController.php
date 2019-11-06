@@ -63,6 +63,25 @@ class ProductController extends FOSRestController {
 
         return $this->get('fos_rest.view_handler')->handle($view);
     }
+      /**
+     * Returns all enumeration values.
+     * 
+     * @return View
+     * 
+     */
+    public function getProductByBarCodeAction($barCode) {
+        $data = $this->getDoctrine()->getManager()->getRepository(Product::class)->findOneByBarCode($barCode);
+
+        if (!$data) {
+            throw new HttpException(404, "product with the id $barCode not found");
+        }
+        $view = View::create()
+                ->setStatusCode(200)
+                ->setData($data);
+
+        return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
 
     /**
      * Returns all enumeration values.
